@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
@@ -65,22 +64,21 @@ public class PdfService {
 		Document document = new Document(pdf);
 
 		PdfFont font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
-		
-		//Add a header
-		document.add(new Paragraph(
-				"Demo Application").setFontColor(ColorConstants.BLACK).setFont(font).setBold()
+
+		// Add a header
+		document.add(new Paragraph("Demo Application").setFontColor(ColorConstants.BLACK).setFont(font).setBold()
 				.setTextAlignment(TextAlignment.CENTER));
-		
-		//Add some spaces
+
+		// Add some spaces
 		spaceAdder(document, 3);
 
-		//Add the barchart
+		// Add the barchart
 		this.setDashboardBarchartInPdf(chartData, document);
 
-		//Add some spaces
+		// Add some spaces
 		spaceAdder(document, 2);
-		
-		//Add the table of data
+
+		// Add the table of data
 		document.add(new Paragraph("Countries Bordered By China").setFontColor(ColorConstants.BLACK).setFont(font)
 				.setBold().setTextAlignment(TextAlignment.CENTER));
 
@@ -94,7 +92,7 @@ public class PdfService {
 		document.close();
 		pdf.close();
 	}
-	
+
 	private void addTableHeader(Table table, List<String> columnList) throws IOException {
 
 		PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
@@ -144,7 +142,7 @@ public class PdfService {
 				Image img = SvgConverter.convertToImage(new FileInputStream(new File(this.generatedSvgLocation
 						+ DatatypeConverter.printHexBinary(md.digest(country.getFlagSvgUrl().getBytes())) + ".svg")),
 						doc);
-				img.setWidth(30).setHeight(15);
+				img.setWidth(Constants.FLAG_SVG_WIDTH).setHeight(Constants.FLAG_SVG_HEIGHT);
 				table.addCell(img.setHorizontalAlignment(HorizontalAlignment.CENTER));
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -157,6 +155,7 @@ public class PdfService {
 
 	/**
 	 * Function to add the barchart to the PDF
+	 * 
 	 * @param chartData
 	 * @param document
 	 */
@@ -170,15 +169,16 @@ public class PdfService {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Add repeated spaces in PDF
+	 * 
 	 * @param document
 	 * @param lim
 	 */
 	private void spaceAdder(Document document, Integer lim) {
-		for(int i=0;i<lim;i++) {
-		document.add(new Paragraph(""));
+		for (int i = 0; i < lim; i++) {
+			document.add(new Paragraph(""));
 		}
 	}
 

@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "generated.pdf.location",
+    "type": "java.lang.String",
+    "description": "A description for 'generated.pdf.location'"
+  },
+  {
+    "name": "application-version",
+    "type": "java.lang.String",
+    "description": "A description for 'application-version'"
+  },
+  {
+    "name": "rest.countries.url",
+    "type": "java.lang.String",
+    "description": "A description for 'rest.countries.url'"
+  },
+  {
+    "name": "generated.chart.location",
+    "type": "java.lang.String",
+    "description": "A description for 'generated.chart.location'"
+  },
+  {
+    "name": "generated.svg.location",
+    "type": "java.lang.String",
+    "description": "A description for 'generated.svg.location'"
+  },
+  {
+    "name": "application-description",
+    "type": "java.lang.String",
+    "description": "A description for 'application-description'"
+  }
+]}
