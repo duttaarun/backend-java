@@ -67,15 +67,18 @@ public class PdfService {
 		PdfFont font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
 		
 		//Add a header
-		document.add(new Paragraph("Demo Application").setFontColor(ColorConstants.BLACK).setFont(font).setBold()
+		document.add(new Paragraph(
+				"Demo Application").setFontColor(ColorConstants.BLACK).setFont(font).setBold()
 				.setTextAlignment(TextAlignment.CENTER));
+		
+		//Add some spaces
+		spaceAdder(document, 3);
 
 		//Add the barchart
 		this.setDashboardBarchartInPdf(chartData, document);
 
 		//Add some spaces
-		document.add(new Paragraph(""));
-		document.add(new Paragraph(""));
+		spaceAdder(document, 2);
 		
 		//Add the table of data
 		document.add(new Paragraph("Countries Bordered By China").setFontColor(ColorConstants.BLACK).setFont(font)
@@ -91,7 +94,7 @@ public class PdfService {
 		document.close();
 		pdf.close();
 	}
-
+	
 	private void addTableHeader(Table table, List<String> columnList) throws IOException {
 
 		PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
@@ -141,7 +144,7 @@ public class PdfService {
 				Image img = SvgConverter.convertToImage(new FileInputStream(new File(this.generatedSvgLocation
 						+ DatatypeConverter.printHexBinary(md.digest(country.getFlagSvgUrl().getBytes())) + ".svg")),
 						doc);
-				img.setWidth(50).setHeight(25);
+				img.setWidth(30).setHeight(15);
 				table.addCell(img.setHorizontalAlignment(HorizontalAlignment.CENTER));
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -152,6 +155,11 @@ public class PdfService {
 		});
 	}
 
+	/**
+	 * Function to add the barchart to the PDF
+	 * @param chartData
+	 * @param document
+	 */
 	private void setDashboardBarchartInPdf(List<BarChart> chartData, Document document) {
 		try {
 			ChartUtilities.writeChartAsPNG(new FileOutputStream(this.generatedChartLocation),
@@ -162,4 +170,16 @@ public class PdfService {
 			ex.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Add repeated spaces in PDF
+	 * @param document
+	 * @param lim
+	 */
+	private void spaceAdder(Document document, Integer lim) {
+		for(int i=0;i<lim;i++) {
+		document.add(new Paragraph(""));
+		}
+	}
+
 }
