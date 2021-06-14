@@ -48,14 +48,7 @@ public class BackendApplication {
 	@Bean
 	public OpenAPI customOpenAPI(@Value("${application-description}") String appDesciption,
 			@Value("${application-version}") String appVersion) {
-
-//		List<Server> servers = new ArrayList<Server>();
-//		Server server = new Server();
-//		server.setUrl("sddsdsd");
-//		server.setDescription("Server");
-//		servers.add(server);
-
-		return new OpenAPI()//.servers(servers)
+		return new OpenAPI()// .servers(servers)
 				.info(new Info().title("Domin Application API").version(appVersion).description(appDesciption)
 						.termsOfService("http://swagger.io/terms/")
 						.license(new License().name("Apache 2.0").url("http://springdoc.org")));

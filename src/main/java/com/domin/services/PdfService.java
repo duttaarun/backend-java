@@ -13,7 +13,6 @@ import java.util.List;
 import javax.xml.bind.DatatypeConverter;
 
 import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
@@ -162,11 +161,8 @@ public class PdfService {
 	 */
 	private void setDashboardBarchartInPdf(List<BarChart> chartData, Document document) {
 		try {
-
-			JFreeChart chart = this.chartService.generateBarChart(chartData);
-			System.out.println(chart);
-			FileOutputStream o = new FileOutputStream(this.generatedChartLocation);
-			ChartUtilities.writeChartAsPNG(o, chart, Constants.CHART_WIDTH, Constants.CHART_HEIGHT);
+			ChartUtilities.writeChartAsPNG(new FileOutputStream(this.generatedChartLocation),
+					this.chartService.generateBarChart(chartData), Constants.CHART_WIDTH, Constants.CHART_HEIGHT);
 			Image img = new Image(ImageDataFactory.create(this.generatedChartLocation));
 			document.add(img.setHorizontalAlignment(HorizontalAlignment.CENTER).setAutoScale(true));
 		} catch (IOException ex) {
