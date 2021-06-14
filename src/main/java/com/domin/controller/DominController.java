@@ -16,7 +16,7 @@ import com.domin.pojo.BarChart;
 import com.domin.pojo.ChinaBorderShare;
 import com.domin.services.DominServices;
 
-@CrossOrigin(origins = {"http://localhost","http://domin-app.eastus.cloudapp.azure.com"}, maxAge = 3600)
+@CrossOrigin(origins = { "http://localhost", "http://domin-app.eastus.cloudapp.azure.com" }, maxAge = 3600)
 @RestController
 public class DominController {
 
