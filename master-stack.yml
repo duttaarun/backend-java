@@ -1,0 +1,54 @@
+version: "3.8"
+services:
+  frontend-svc:
+   image: domin-ui:v2.0
+   ports:
+    - target: 80
+      published: 80
+      protocol: tcp
+      mode: ingress
+   deploy:
+    mode: replicated
+    replicas: 1
+    endpoint_mode: vip
+    update_config:
+     parallelism: 5
+     delay: 10s
+    restart_policy:
+     condition: on-failure
+     max_attempts: 5
+     window: 600s
+    resources:
+     limits:
+      cpus: '2'
+      memory: 6144M
+     reservations:
+      cpus: '1'
+      memory: 4096M
+
+  backend-svc:
+   image: domin-service:v2.0
+   ports:
+    - target: 8080
+      published: 8080
+      protocol: tcp
+      mode: ingress
+   deploy:
+    mode: replicated
+    replicas: 1
+    endpoint_mode: vip
+    update_config:
+     parallelism: 5
+     delay: 10s
+    restart_policy:
+     condition: on-failure
+     max_attempts: 5
+     window: 600s
+    resources:
+     limits:
+      cpus: '2'
+      memory: 6144M
+     reservations:
+      cpus: '1'
+      memory: 4096M
+
