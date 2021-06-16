@@ -59,7 +59,7 @@ public class PdfService {
 	public void generatePdf(List<String> columnList, List<BarChart> chartData,
 			List<ChinaBorderShare> chinaBorderCountries) throws IOException {
 		PdfWriter writer = new PdfWriter(new FileOutputStream(new File(this.generatedPdfLocation)),
-				new WriterProperties().setCompressionLevel(0));
+				new WriterProperties().setCompressionLevel(9));
 		PdfDocument pdf = new PdfDocument(writer);
 		Document document = new Document(pdf);
 
